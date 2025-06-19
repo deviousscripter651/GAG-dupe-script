@@ -1,0 +1,40 @@
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "FakeBypassUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.4, 0, 0.15, 0)
+frame.Position = UDim2.new(0.3, 0, 0.4, 0)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = frame
+
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, 0, 1, 0)
+label.Position = UDim2.new(0, 0, 0, 0)
+label.BackgroundTransparency = 1
+label.Text = "Bypassing Anti-Cheat: 0%"
+label.TextColor3 = Color3.fromRGB(0, 255, 0)
+label.TextScaled = true
+label.Font = Enum.Font.Code
+label.Parent = frame
+
+-- Progress simulation
+local totalTime = 180
+local interval = 0.5
+local steps = totalTime / interval
+
+spawn(function()
+    for i = 1, steps do
+        local percent = math.floor((i / steps) * 100)
+        label.Text = "Bypassing Anti-Cheat: " .. percent .. "%"
+        wait(interval)
+    end
+    screenGui:Destroy()
+end)
